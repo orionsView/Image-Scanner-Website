@@ -8,9 +8,24 @@ let fnums = new Map([
     [102, 0], [114, 0], [128, 0]
 ])
 
+let chartObject1 = null;
+
 
 
 document.getElementById("fileInput").addEventListener("change", function (event) {
+    if (chartObject1 != null) {
+        chartObject1.destroy();
+        fnums = new Map([
+            [1.0, 0], [1.1, 0], [1.2, 0], [1.4, 0], [1.6, 0], [1.8, 0], [2, 0], [2.2, 0], [2.5, 0], [2.8, 0],
+            [3.2, 0], [3.5, 0], [4, 0], [4.5, 0], [5.0, 0], [5.6, 0], [6.3, 0], [7.1, 0], [8, 0], [9, 0],
+            [10, 0], [11, 0], [13, 0], [14, 0], [16, 0], [18, 0], [20, 0], [22, 0], [25, 0], [29, 0],
+            [32, 0], [36, 0], [40, 0], [45, 0], [51, 0], [57, 0], [64, 0], [72, 0], [81, 0], [90, 0],
+            [102, 0], [114, 0], [128, 0]
+        ])
+    }
+
+
+
     const lab = document.getElementById("l");
     const folder = event.target.files;
     lab.innerHTML = "";//clear
@@ -45,13 +60,14 @@ document.getElementById("fileInput").addEventListener("change", function (event)
 
 
 function updateChart() {
+
     console.log(fnums);
     let labels = Array.from(fnums.keys());
     labels.length = 20;
     const values = Array.from(fnums.values());
 
     const c1 = document.getElementById("chart1");
-    new Chart(c1, {
+    chartObject1 = new Chart(c1, {
         type: 'bar',
         data: {
             labels: labels,
