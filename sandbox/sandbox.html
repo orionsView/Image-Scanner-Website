@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+
+<head>
+    <title>title</title>
+</head>
+<html>
+
+<body>
+    <!-- <button id="but1">clickme</button> -->
+    <input type="file" id="fileInput" webkitdirectory multiple>
+    <label id="l">default</label>
+    <div id="canvasContainer">
+        <canvas id="chart1"></canvas>
+    </div>
+</body>
+<style>
+    #fileInput {
+        height: 200px;
+        width: 400px;
+        border: 1px solid red;
+    }
+
+    #canvasContainer {
+        border: 1px solid blue;
+        /* height: 50%; */
+        width: 50%;
+    }
+</style>
+
+
+<script src="sandScript.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<!-- https://github.com/exif-js/exif-js?tab=readme-ov-file -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- https://www.chartjs.org/docs/latest/getting-started/ -->
+
+</html>
