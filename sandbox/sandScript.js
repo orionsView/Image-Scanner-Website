@@ -41,6 +41,9 @@ document.getElementById("fileInput").addEventListener("change", function (event)
             }
             processedFiles++;
 
+            // var temp = EXIF.getAllTags(this);
+            // console.log(temp);
+
             // lab.textContent = "hello";
             console.log(processedFiles);
             if (processedFiles === totalFiles) {
