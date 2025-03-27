@@ -9,6 +9,12 @@ let fnums = new Map([
 ])
 
 let chartObject1 = null;
+const lab = document.getElementById("l");
+
+document.getElementById("textInputField").addEventListener("change", function (event) {
+    lab.textContent = document.getElementById("textInputField").value;
+});
+
 
 
 
@@ -26,7 +32,7 @@ document.getElementById("fileInput").addEventListener("change", function (event)
 
 
 
-    const lab = document.getElementById("l");
+
     const folder = event.target.files;
     lab.innerHTML = "";//clear
 
