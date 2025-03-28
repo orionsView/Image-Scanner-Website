@@ -12,7 +12,13 @@ let chartObject1 = null;
 const lab = document.getElementById("l");
 
 document.getElementById("textInputField").addEventListener("change", function (event) {
-    lab.textContent = document.getElementById("textInputField").value;
+    const name  = document.getElementById("textInputField").value;
+    lab.textContent = "name inputed: " + name;
+
+    const urlToFetch = `http://localhost:5000/api/images/fnum/${name}`
+    fetch(urlToFetch)
+    .then(response => response.json())
+    .then(data => console.log(data)); // Show images for Alice
 });
 
 
