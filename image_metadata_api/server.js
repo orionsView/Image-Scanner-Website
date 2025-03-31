@@ -64,6 +64,25 @@ app.get("/api/images/fNum/:customerName", async (req, res) => {
   }
 });
 
+app.post("/api/images", async (req, res) => {
+  const {customerID, artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID} = req.body; // Get new data
+
+  try {
+      const result = await pool.query(
+          `INSERT INTO photo (customerID,artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID)
+           VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+           RETURNING *;`,
+      [customerID, artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID]
+      );
+
+
+      res.json(result.rows[0]); // Return updated image
+  } catch (err) {
+      console.error(err);
+      res.status(500).send("Server Error");
+  }
+});
+
 
 // Start the Server
 const PORT = process.env.PORT || 5000;

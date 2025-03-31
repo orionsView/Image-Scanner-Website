@@ -19,8 +19,20 @@ document.getElementById("textInputField").addEventListener("change", function (e
     fetch(urlToFetch)
     .then(response => response.json())
     .then(data => console.log(data)); // Show images for Alice
+
+
+    
+
+    
 });
 
+// let myData = await fetchData(urlToFetch);
+
+// async function fetchData(url) {
+//     let response = await fetch(url);
+//     let data = await response.json();
+//     return data;
+// }
 
 
 
