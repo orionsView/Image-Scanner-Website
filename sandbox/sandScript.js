@@ -19,10 +19,6 @@ document.getElementById("textInputField").addEventListener("change", function (e
     fetch(urlToFetch)
     .then(response => response.json())
     .then(data => console.log(data)); // Show images for Alice
-
-
-    
-
     
 });
 
