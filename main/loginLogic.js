@@ -10,16 +10,16 @@ document.getElementById("subButton").addEventListener("click", function (event) 
 
 function checkUserName(userName) {
     let header = document.getElementById("topText");
-    if(userName === "a"){
+    if (userName === "bob_w") {
         console.log("correct");
         //go to alternate page
         localStorage.setItem("userName", userName); // store the value in local storage
         window.location.href = "UserHomePage.html";
-    }else{
+    } else {
         console.log("incorrect");
         header.textContent = "Incorrect Username";
     }
-    
+
 }
 
 // export {userName};
