@@ -83,6 +83,7 @@ app.post("/api/images", async (req, res) => {
     }
 });
 
+//http://localhost:5000/api/userexists/bob_w
 app.get("/api/userexists/:customerName", async (req, res) => {
     const customerName = req.params.customerName;
 

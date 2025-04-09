@@ -1,25 +1,27 @@
 // window.onload=getExif;
 
-let fnums = new Map([
-    [1.0, 0], [1.1, 0], [1.2, 0], [1.4, 0], [1.6, 0], [1.8, 0], [2, 0], [2.2, 0], [2.5, 0], [2.8, 0],
-    [3.2, 0], [3.5, 0], [4, 0], [4.5, 0], [5.0, 0], [5.6, 0], [6.3, 0], [7.1, 0], [8, 0], [9, 0],
-    [10, 0], [11, 0], [13, 0], [14, 0], [16, 0], [18, 0], [20, 0], [22, 0], [25, 0], [29, 0],
-    [32, 0], [36, 0], [40, 0], [45, 0], [51, 0], [57, 0], [64, 0], [72, 0], [81, 0], [90, 0],
-    [102, 0], [114, 0], [128, 0]
-])
+// let fnums = new Map([
+//     [1.0, 0], [1.1, 0], [1.2, 0], [1.4, 0], [1.6, 0], [1.8, 0], [2, 0], [2.2, 0], [2.5, 0], [2.8, 0],
+//     [3.2, 0], [3.5, 0], [4, 0], [4.5, 0], [5.0, 0], [5.6, 0], [6.3, 0], [7.1, 0], [8, 0], [9, 0],
+//     [10, 0], [11, 0], [13, 0], [14, 0], [16, 0], [18, 0], [20, 0], [22, 0], [25, 0], [29, 0],
+//     [32, 0], [36, 0], [40, 0], [45, 0], [51, 0], [57, 0], [64, 0], [72, 0], [81, 0], [90, 0],
+//     [102, 0], [114, 0], [128, 0]
+// ])
+
+let fnums = new Map();
 
 let chartObject1 = null;
 const lab = document.getElementById("l");
 
 document.getElementById("textInputField").addEventListener("change", function (event) {
-    const name  = document.getElementById("textInputField").value;
+    const name = document.getElementById("textInputField").value;
     lab.textContent = "name inputed: " + name;
 
     const urlToFetch = `http://localhost:5000/api/images/fnum/${name}`
     fetch(urlToFetch)
-    .then(response => response.json())
-    .then(data => console.log(data)); // Show images for Alice
-    
+        .then(response => response.json())
+        .then(data => console.log(data)); // Show images for Alice
+
 });
 
 // let myData = await fetchData(urlToFetch);
@@ -35,13 +37,13 @@ document.getElementById("textInputField").addEventListener("change", function (e
 document.getElementById("fileInput").addEventListener("change", function (event) {
     if (chartObject1 != null) {
         chartObject1.destroy();
-        fnums = new Map([
-            [1.0, 0], [1.1, 0], [1.2, 0], [1.4, 0], [1.6, 0], [1.8, 0], [2, 0], [2.2, 0], [2.5, 0], [2.8, 0],
-            [3.2, 0], [3.5, 0], [4, 0], [4.5, 0], [5.0, 0], [5.6, 0], [6.3, 0], [7.1, 0], [8, 0], [9, 0],
-            [10, 0], [11, 0], [13, 0], [14, 0], [16, 0], [18, 0], [20, 0], [22, 0], [25, 0], [29, 0],
-            [32, 0], [36, 0], [40, 0], [45, 0], [51, 0], [57, 0], [64, 0], [72, 0], [81, 0], [90, 0],
-            [102, 0], [114, 0], [128, 0]
-        ])
+        // fnums = new Map([
+        //     [1.0, 0], [1.1, 0], [1.2, 0], [1.4, 0], [1.6, 0], [1.8, 0], [2, 0], [2.2, 0], [2.5, 0], [2.8, 0],
+        //     [3.2, 0], [3.5, 0], [4, 0], [4.5, 0], [5.0, 0], [5.6, 0], [6.3, 0], [7.1, 0], [8, 0], [9, 0],
+        //     [10, 0], [11, 0], [13, 0], [14, 0], [16, 0], [18, 0], [20, 0], [22, 0], [25, 0], [29, 0],
+        //     [32, 0], [36, 0], [40, 0], [45, 0], [51, 0], [57, 0], [64, 0], [72, 0], [81, 0], [90, 0],
+        //     [102, 0], [114, 0], [128, 0]
+        // ])
     }
 
 
@@ -57,7 +59,8 @@ document.getElementById("fileInput").addEventListener("change", function (event)
         EXIF.getData(file, function () {
             var metaData = EXIF.getTag(this, "FNumber");
             if (metaData != undefined) {
-                fnums.set(metaData.valueOf(), fnums.get(metaData.valueOf()) + 1);
+                let prevVal = fnums.get(metaData.valueOf()) || 0;
+                fnums.set(metaData.valueOf(), prevVal + 1);
             }
             processedFiles++;
 
@@ -85,9 +88,10 @@ document.getElementById("fileInput").addEventListener("change", function (event)
 function updateChart() {
 
     console.log(fnums);
-    let labels = Array.from(fnums.keys());
-    labels.length = 20;
-    const values = Array.from(fnums.values());
+    const xVals = [1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2.0, 2.2, 2.5, 2.8, 3.2, 3.5, 4.0, 4.5, 5.0, 5.6, 6.3, 7.1, 8.0, 9.0, 10.0, 11.0, 13.0, 14.0,
+        16.0, 18.0, 20.0, 22.0, 25.0, 29.0, 32.0, 36.0, 40.0, 45.0, 51.0, 57.0, 64.0, 72.0, 81.0, 90.0, 102.0, 114.0, 128.0]
+    const labels = xVals;
+    const values = xVals.map(x => fnums.get(x) || 0);
 
     const c1 = document.getElementById("chart1");
     chartObject1 = new Chart(c1, {
@@ -103,6 +107,10 @@ function updateChart() {
         },
         options: {
             scales: {
+                x: {
+                    min: 1.0, // Set minimum value for x-axis
+                    max: 32.0  // Set maximum value for x-axis
+                },
                 y: {
                     beginAtZero: true
                 }

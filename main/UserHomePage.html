@@ -1,10 +1,23 @@
 <!DOCTYPE html>
 <html>
 
+<head>
+    <style>
+        #inputBox {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
 <body>
     <h1>Home Page</h1>
     <p id="userNameTitle">This is the home page</p>
-    <button id="displayUserNameButon">Display User Name</button>
+    <button id="displayUserNameButon">Display User Name</button><br>
+    <div id="inputBox">
+        <input type="file" id="fileInput" webkitdirectory multiple>
+    </div>
 </body>
 
 <script src="UserHomePageLogic.js"></script>
