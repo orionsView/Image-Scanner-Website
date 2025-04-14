@@ -69,7 +69,7 @@ app.post("/api/images", async (req, res) => {
 
     try {
         const result = await pool.query(
-            `INSERT INTO photo (customerID,artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID)
+            `INSERT INTO photo (customerID, artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID)
            VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
            RETURNING *;`,
             [customerID, artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID]
@@ -83,13 +83,13 @@ app.post("/api/images", async (req, res) => {
     }
 });
 
-//http://localhost:5000/api/userexists/bob_w
-app.get("/api/userexists/:customerName", async (req, res) => {
+//http://localhost:5000/api/userid/bob_w
+app.get("/api/userid/:customerName", async (req, res) => {
     const customerName = req.params.customerName;
 
     try {
         const result = await pool.query(`
-            SELECT *
+            SELECT id
             FROM customer
             WHERE username = $1;
         `, [customerName]);
@@ -100,6 +100,9 @@ app.get("/api/userexists/:customerName", async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
+
+//TODO: ADD endpoint to get make id from make name
 
 
 // Start the Server

@@ -10,11 +10,13 @@ document.getElementById("subButton").addEventListener("click", function (event) 
 
 function checkUserName(userName) {
     let header = document.getElementById("topText");
-    userNameExistsCheck(userName).then(userExists => {
-        if (userExists) {
+    userNameExistsCheck(userName).then(userData => {
+        if (userData.length > 0) {
             console.log("correct");
             //go to alternate page
             localStorage.setItem("userName", userName); // store the value in local storage
+            console.log(userData);
+            localStorage.setItem("userID", userData[0].id);
             window.location.href = "UserHomePage.html";
         } else {
             console.log("incorrect");
@@ -25,11 +27,11 @@ function checkUserName(userName) {
 }
 
 async function userNameExistsCheck(userName) {
-    const urlToFetch = `http://localhost:5000/api/userexists/${userName}`;
+    const urlToFetch = `http://localhost:5000/api/userid/${userName}`;
     try {
         const response = await fetch(urlToFetch);
         const data = await response.json();
-        return data && data.length > 0;
+        return data;
     } catch (error) {
         console.error('Error checking username:', error);
         return false;
