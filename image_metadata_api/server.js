@@ -101,8 +101,29 @@ app.get("/api/userid/:customerName", async (req, res) => {
     }
 });
 
-
 //TODO: ADD endpoint to get make id from make name
+app.get("/api/images/makeid/:makeName", async (req, res) => {
+    const makeName = req.params.makeName;
+
+    try {
+        const result = await pool.query(`
+            SELECT id
+            FROM make
+            WHERE name ILIKE $1;
+        `, [makeName]);
+
+        if (result.rows.length > 0) {
+            // If a matching make is found, return the id
+            res.json({ id: result.rows[0].id });
+        } else {
+            // If no matching make is found, return a 404
+            res.status(404).send("Make not found");
+        }
+    }catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+});
 
 
 // Start the Server
