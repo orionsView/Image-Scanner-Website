@@ -1,6 +1,6 @@
 document.getElementById("displayUserNameButon").addEventListener("click", function (event) {
     const userNameTitle = document.getElementById("userNameTitle");
-    userNameTitle.textContent = "User Name: " + localStorage.getItem("userName") + " " + localStorage.getItem("userID");
+    userNameTitle.textContent = "User Name: " + sessionStorage.getItem("userName") + " " + sessionStorage.getItem("userID");
 })
 
 
@@ -16,45 +16,45 @@ document.getElementById("fileInput").addEventListener("change", function (event)
     let counter = 0;
 
     for (let i = 0; i < files.length; i++) {
-    const file = files[i];
-    EXIF.getData(file, function () {
-        var allMetaData = EXIF.getAllTags(this);
-        console.log(allMetaData);
-        console.log("fnum: ", allMetaData["FNumber"]);
+        const file = files[i];
+        EXIF.getData(file, function () {
+            var allMetaData = EXIF.getAllTags(this);
+            console.log(allMetaData);
+            console.log("fnum: ", allMetaData["FNumber"]);
 
-        getMakeID(allMetaData["Make"]).then(makeID => {
-            usedMetaDataObjectArray[i] = {
-                "customerID": localStorage.getItem("userID"),
-                "fNum": allMetaData["FNumber"],
-                "shutterSpeed": reformatShutterSpeed(allMetaData["ExposureTime"]),
-                "timeTaken": refromatDateTime(allMetaData["DateTime"]),
-                "ISO": allMetaData["ISOSpeedRatings"],
-                "focalLength": allMetaData["FocalLength"],
-                "artistName": allMetaData["Artist"],
-                "makeID": makeID
-            }
+            getMakeID(allMetaData["Make"]).then(makeID => {
+                usedMetaDataObjectArray[i] = {
+                    "customerID": sessionStorage.getItem("userID"),
+                    "fNum": allMetaData["FNumber"],
+                    "shutterSpeed": reformatShutterSpeed(allMetaData["ExposureTime"]),
+                    "timeTaken": refromatDateTime(allMetaData["DateTime"]),
+                    "ISO": allMetaData["ISOSpeedRatings"],
+                    "focalLength": allMetaData["FocalLength"],
+                    "artistName": allMetaData["Artist"],
+                    "makeID": makeID
+                }
 
 
-            console.log(usedMetaDataObjectArray[i]);
-            const botText = document.getElementById("bottomText");
-            botText.innerHTML = "<span style='font-weight: bold;'>Add Meta Data?</span><br>" + makeMetaDataString(usedMetaDataObjectArray[i]);
+                console.log(usedMetaDataObjectArray[i]);
+                const botText = document.getElementById("bottomText");
+                botText.innerHTML = "<span style='font-weight: bold;'>Add Meta Data?</span><br>" + makeMetaDataString(usedMetaDataObjectArray[i]);
 
-            // Atomics.add(counter, 0, 1);
-            counter++;
+                // Atomics.add(counter, 0, 1);
+                counter++;
 
-            const confirmButton = document.getElementById("confirmButton");
-            if(counter == files.length) {
-                confirmButton.textContent = "Confirm?";
-                confirmButton.addEventListener("click", function (event) {
-                    for(let metaDataObject of usedMetaDataObjectArray){
-                        sendPostRequest(metaDataObject);
-                    }
-                })
-            }else{
-                confirmButton.textContent = `Processing File ${counter} of ${files.length}...`;
-            }
-        })
-    });
+                const confirmButton = document.getElementById("confirmButton");
+                if (counter == files.length) {
+                    confirmButton.textContent = "Confirm?";
+                    confirmButton.addEventListener("click", function (event) {
+                        for (let metaDataObject of usedMetaDataObjectArray) {
+                            sendPostRequest(metaDataObject);
+                        }
+                    })
+                } else {
+                    confirmButton.textContent = `Processing File ${counter} of ${files.length}...`;
+                }
+            })
+        });
 
     }
 
@@ -130,11 +130,11 @@ function refromatDateTime(dateTime) {
 function reformatShutterSpeed(shutterSpeed) {
     // 1/125 = 0.008 
     //.008 = 8/1000
-    if(shutterSpeed >= 1 || shutterSpeed == 0){
+    if (shutterSpeed >= 1 || shutterSpeed == 0) {
         return shutterSpeed;
     }
 
-    let denominator = 1/shutterSpeed;
+    let denominator = 1 / shutterSpeed;
 
     return `1/${denominator}`;
 

@@ -14,9 +14,9 @@ function checkUserName(userName) {
         if (userData.length > 0) {
             console.log("correct");
             //go to alternate page
-            localStorage.setItem("userName", userName); // store the value in local storage
+            sessionStorage.setItem("userName", userName); // store the value in local storage
             console.log(userData);
-            localStorage.setItem("userID", userData[0].id);
+            sessionStorage.setItem("userID", userData[0].id);
             window.location.href = "UserHomePage.html";
         } else {
             console.log("incorrect");
