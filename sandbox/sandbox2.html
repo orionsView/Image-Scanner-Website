@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Fancy Folder Picker</title>
+    <style>
+        .file-picker-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: Arial, sans-serif;
+        }
+
+        .file-picker-button {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .file-picker-button:hover {
+            background-color: #45a049;
+        }
+
+        .file-picker-button i {
+            font-style: normal;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .file-picker-label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        #fileInput {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="file-picker-wrapper">
+        <button type="button" class="file-picker-button" id="pickFolderButton">
+            <i>📁</i> Select Folder(s)
+        </button>
+        <span class="file-picker-label" id="selectedFolderLabel">No folder selected</span>
+        <input type="file" id="fileInput" webkitdirectory multiple>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const pickFolderButton = document.getElementById('pickFolderButton');
+        const selectedFolderLabel = document.getElementById('selectedFolderLabel');
+
+        pickFolderButton.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files.length > 0) {
+                // Get the first file's relative path
+                const firstPath = fileInput.files[0].webkitRelativePath;
+                // Extract the folder name
+                const folderName = firstPath.split('/')[0];
+                selectedFolderLabel.textContent = folderName;
+            } else {
+                selectedFolderLabel.textContent = 'No folder selected';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

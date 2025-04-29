@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Add Photos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            border: 1px solid red;
+            height: 92vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #topText {}
+
+        #inputBox {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+
+        #fileInput {
+            height: 200px;
+            width: 400px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <label id="topText">Choose Photos To Upload</label>
+        <!-- <div id="inputBox" class="container"> -->
+        <input type="file" id="fileInput" webkitdirectory multiple>
+        <!-- </div> -->
+        <label id="bottomText"></label>
+        <button id="confirmButton"></button>
+    </div>
+</body>
+<html>
