@@ -1,0 +1,45 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#inputBox {
+  width: 200px;
+  height: 200px;
+  border: 1px solid red;
+}
+
+#mainContainer {
+  border: 1px solid red;
+  height: 92vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#navBar {
+  border: 1px solid red;
+  height: 8vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.defaultButton {
+  transition: all 0.1s ease;
+  width: 100px;
+  height: 50px;
+  background-color: black;
+  box-shadow: 10px 10px 20px 1px black;
+  border-radius: 10px;
+  border: 1px solid white;
+  color: white;
+  font-size: 15px;
+  /* font-weight: bold; */
+}
+
+.defaultButton:hover {
+  background-color: white;
+  color: black;
+}
