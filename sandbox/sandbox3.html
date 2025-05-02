@@ -1,0 +1,91 @@
+<!-- //make this work for current page, maybe as a component -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Horizontal Scroll with Scrollbar</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 2rem;
+            background: #fafafa;
+        }
+
+        .scroll-container {
+            display: flex;
+            overflow-x: auto;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #ddd;
+            background: white;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .item {
+            min-width: 200px;
+            flex: 0 0 auto;
+            background-color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            scroll-snap-align: start;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            font-size: 1.2rem;
+        }
+
+        /* Show scrollbar explicitly */
+        .scroll-container::-webkit-scrollbar {
+            height: 12px;
+        }
+
+        .scroll-container::-webkit-scrollbar-track {
+            background: #eee;
+        }
+
+        .scroll-container::-webkit-scrollbar-thumb {
+            background-color: #999;
+            border-radius: 6px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Horizontally Scrollable List</h2>
+
+    <div class="scroll-container" id="scroll-container">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+        <div class="item">Item 7</div>
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+        <div class="item">Item 4</div>
+        <div class="item">Item 5</div>
+        <div class="item">Item 6</div>
+        <div class="item">Item 7</div>
+    </div>
+
+    <script>
+        const container = document.getElementById('scroll-container');
+
+        // Scroll horizontally with vertical scroll wheel
+        container.addEventListener('wheel', (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            container.scrollBy({ left: e.deltaY, behavior: 'smooth' });
+        }, { passive: false });
+    </script>
+
+</body>
+
+</html>
