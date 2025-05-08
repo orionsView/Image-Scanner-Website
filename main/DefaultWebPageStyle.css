@@ -14,12 +14,12 @@
   height: 92vh;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
 }
 
 #navBar {
-  border: 1px solid red;
+  /* border: 1px solid red; */
   height: 8vh;
   display: flex;
   justify-content: space-around;

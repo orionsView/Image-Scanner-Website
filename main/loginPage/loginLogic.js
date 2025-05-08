@@ -37,6 +37,3 @@ async function userNameExistsCheck(userName) {
         return false;
     }
 }
-
-
-// export {userName};

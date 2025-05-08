@@ -10,8 +10,9 @@
         }
 
         .container {
-            border: 1px solid red;
+            /* border: 1px solid red; */
             height: 92vh;
+            /* width: 100%; */
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -35,13 +36,12 @@
 </head>
 
 <body onload="loadNavBar()">
-    <div class="main container">
+    <div id="mainContainer">
         <label id="topText">Choose Photos To Upload</label>
         <!-- <div id="inputBox" class="container"> -->
         <input type="file" id="fileInput" webkitdirectory multiple>
         <!-- </div> -->
-        <label id="bottomText"></label>
-        <!-- <button id="confirmButton"></button> -->
+        
     </div>
     <div id="navBar"></div>
 
@@ -50,6 +50,7 @@
 <script src="AddPhotoPageLogic.js"></script>
 <script src="../loadNavBar.js"></script>
 <link rel="stylesheet" href="../DefaultWebPageStyle.css">
+<link rel="stylesheet" href="../scrollbar.css">
 
 <script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
 <!-- this is the exif library -->

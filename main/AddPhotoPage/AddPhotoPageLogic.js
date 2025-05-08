@@ -1,5 +1,10 @@
 document.getElementById("fileInput").addEventListener("change", function (event) {
-    const cont = document.getElementsByClassName("main container")[0];
+    const cont = document.getElementById("mainContainer");
+    
+    const scrollContainer = document.createElement("div");
+    scrollContainer.classList.add("scroll-container");    
+    cont.appendChild(scrollContainer);
+
     const fileInput = document.getElementById("fileInput");
     const files = fileInput.files;
     const loadingIndicator = document.createElement("label");
@@ -13,7 +18,9 @@ document.getElementById("fileInput").addEventListener("change", function (event)
     let counter = 0;
 
     for (let i = 0; i < files.length; i++) {
+        // let i = 0;
         const file = files[i];
+
         EXIF.getData(file, function () {
             var allMetaData = EXIF.getAllTags(this);
             console.log(allMetaData);
@@ -33,8 +40,9 @@ document.getElementById("fileInput").addEventListener("change", function (event)
 
 
                 console.log(usedMetaDataObjectArray[i]);
-                const botText = document.getElementById("bottomText");
-                botText.innerHTML = "<span style='font-weight: bold;'>Add Meta Data?</span><br>" + makeMetaDataString(usedMetaDataObjectArray[i]);
+                // const botText = document.getElementById("bottomText");
+                // botText.innerHTML = "<span style='font-weight: bold;'>Add Meta Data?</span><br>" + makeMetaDataString(usedMetaDataObjectArray[i]);
+                addStringToScrollContainer(makeMetaDataString(usedMetaDataObjectArray[i]));
 
                 counter++;
 
@@ -57,7 +65,7 @@ document.getElementById("fileInput").addEventListener("change", function (event)
             })
         });
 
-    }
+     }
 
 })
 
@@ -139,4 +147,14 @@ function reformatShutterSpeed(shutterSpeed) {
 
     return `1/${denominator}`;
 
+}
+
+function addStringToScrollContainer(stringToAdd) {
+    console.log("String to add: ", stringToAdd);
+    const scrollContainer = document.getElementsByClassName("scroll-container")[0];
+    const stats = document.createElement("div");
+    stats.innerHTML = stringToAdd;
+    stats.classList.add("scroll-item");
+    // stats.style.border = "1px solid red";
+    scrollContainer.appendChild(stats);
 }
