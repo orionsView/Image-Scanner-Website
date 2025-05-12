@@ -18,6 +18,7 @@ const pool = new Pool({
 });
 
 // API Endpoint to Fetch All Images
+// http://localhost:5000/api/images
 app.get("/api/images", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM photo;");
@@ -28,6 +29,8 @@ app.get("/api/images", async (req, res) => {
     }
 });
 
+// API Endpoint to Fetch All Image information associated with username
+// http://localhost:5000/api/images/alice123
 app.get("/api/images/:customerName", async (req, res) => {
     const customerName = req.params.customerName;
 
@@ -46,6 +49,8 @@ app.get("/api/images/:customerName", async (req, res) => {
     }
 });
 
+// API Endpoint to Fetch All Image fNums associated with usernam
+// http://localhost:5000/api/images/fNum/alice123
 app.get("/api/images/fNum/:customerName", async (req, res) => {
     const customerName = req.params.customerName;
 
@@ -63,6 +68,28 @@ app.get("/api/images/fNum/:customerName", async (req, res) => {
         res.status(500).send("Server Error");
     }
 });
+
+// API Endpoint to Fetch All Image data associated with usernam
+// http://localhost:5000/api/images/data/alice123
+app.get("/api/images/data/:customerName", async (req, res) => {
+    const customerName = req.params.customerName;
+
+    try {
+        const result = await pool.query(`
+          SELECT *
+          FROM photo
+          JOIN customer ON photo.customerid = customer.id
+          WHERE customer.username = $1;
+      `, [customerName]);
+
+        res.json(result.rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Server Error");
+    }
+});
+
+// API Endpoint to Add New Images to database with associated user id
 
 app.post("/api/images", async (req, res) => {
     const { customerID, artistName, timeTaken, shutterSpeed, fNum, focalLength, ISO, makeID } = req.body; // Get new data
@@ -83,6 +110,7 @@ app.post("/api/images", async (req, res) => {
     }
 });
 
+// get user id from username
 //http://localhost:5000/api/userid/bob_w
 app.get("/api/userid/:customerName", async (req, res) => {
     const customerName = req.params.customerName;
@@ -101,7 +129,8 @@ app.get("/api/userid/:customerName", async (req, res) => {
     }
 });
 
-//TODO: ADD endpoint to get make id from make name
+// API endpoint to get make id from make name
+// http://localhost:5000/api/images/makeid/sony
 app.get("/api/images/makeid/:makeName", async (req, res) => {
     const makeName = req.params.makeName;
 
