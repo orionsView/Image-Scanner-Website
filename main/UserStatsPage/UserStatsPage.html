@@ -8,10 +8,12 @@
 <body onload="loadNavBar()">
     <div id="mainContainer">
         <select id="userStatsSelect">
-            <option>No Options Available</option>
-
+            <option disabled selected>Select Setting To View</option>
+            <option value="fnum">FNum</option>
+            <option value="iso">ISO</option>
+            <option value="shutterspeed">ShutterSpeed</option>
         </select>
-        
+        <canvas id="settingsChart"></canvas>
     </div>
     <div id="navBar"></div>
 
@@ -20,5 +22,11 @@
 <script src="UserStatsPageLogic.js"></script>
 <script src="../loadNavBar.js"></script>
 <link rel="stylesheet" href="../DefaultWebPageStyle.css">
+
+<script src="https://cdn.jsdelivr.net/npm/exif-js"></script>
+<!-- https://github.com/exif-js/exif-js?tab=readme-ov-file -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<!-- https://www.chartjs.org/docs/latest/getting-started/ -->
 
 </html>
